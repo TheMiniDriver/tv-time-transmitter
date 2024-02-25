@@ -8,9 +8,23 @@ const path = require('path');
 
 const hlsOutputDirectory = './hlsoutput';
 const playlistFilePath = './videos/broadcast-ready/playlist.txt';
+const validTokens = ['elphin', 'bradley'];
+
+// Add a simple authentication middleware to the app. This gets a token from the query string and checks if it matches the expected token.
+function checkToken(req, res, next){
+  const token = req.query.token;
+  console.log(token);
+  if (validTokens.includes(token)) {
+    console.log('Token is valid');
+    next();
+  } else {
+    console.log('Token is invalid');
+    res.status(401).send('Unauthorized');
+  }
+}
 
 
-app.get('/', function(req, res) {
+app.get('/', checkToken, function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
@@ -42,11 +56,11 @@ app.listen(PORT, () => {
   ]);
 
   ffmpegProcess.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
+   // console.log(`stdout: ${data}`);
   });
 
   ffmpegProcess.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+   // console.error(`stderr: ${data}`);
   });
 
   ffmpegProcess.on('close', (code) => {

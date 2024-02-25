@@ -7,7 +7,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>TV Time</title>
     <style>
-    
         .video-container {
             position: relative;
             width: 100%;
@@ -23,6 +22,7 @@
             height: 100%;
         }
     </style>
+
 </head>
 
 <body>
@@ -33,5 +33,15 @@
         </video>
     </div>
 </body>
+
+
+<script>
+    // Get the 'token' parameter from the URL query string. 
+    // update the video source with the token
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const video = document.querySelector('video');
+    video.src = `/stream/index.m3u8?token=${token}`;
+</script>
 
 </html>
