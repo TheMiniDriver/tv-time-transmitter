@@ -25,7 +25,7 @@ function checkToken(req, res, next){
 
 function logToken(req, res, next) {
   if (req.query.token) {
-    console.log('Token:', req.query.token);
+    console.log(`${Date()} Token:`, req.query.token);
   }
   next();
 }
