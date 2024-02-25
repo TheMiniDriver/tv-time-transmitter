@@ -23,12 +23,19 @@ function checkToken(req, res, next){
   }
 }
 
+function logToken(req, res, next) {
+  if (req.query.token) {
+    console.log('Token:', req.query.token);
+  }
+  next();
+}
+
 
 app.get('/', checkToken, function(req, res) {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.use('/stream', express.static(hlsOutputDirectory));
+app.use('/stream',logToken, express.static(hlsOutputDirectory));
 
 app.listen(PORT, () => {
   // Remove everything in the hlsOutputDirectory directory before starting a new stream: 
