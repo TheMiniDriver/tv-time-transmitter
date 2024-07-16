@@ -1,14 +1,15 @@
 const express = require('express');
 const { spawn } = require('child_process');
 const fs = require('fs');
-var cron = require('node-cron');
-const app = express();
-const PORT = process.env.PORT || 3000;
 const path = require('path');
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Move to .env file
 const hlsOutputDirectory = './hlsoutput';
 const playlistFilePath = './videos/broadcast-ready/playlist.txt';
-const validTokens = ['elphin', 'bradley'];
+const validTokens = ['elphin', 'elphintvapp', 'bradley','ipad'];
 
 // Add a simple authentication middleware to the app. This gets a token from the query string and checks if it matches the expected token.
 function checkToken(req, res, next){
